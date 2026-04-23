@@ -101,13 +101,50 @@ fn ai_check_around(_simple_vec_map: [char; 9], i: i32) {
             {chng_map(('B', '2'), 'O'); }
         }
         2 => {
-            
+            if _simple_vec_map[1] == ' '
+            { chng_map(('B', '1'), 'O'); } else if _simple_vec_map[4] == ' '
+            { chng_map(('B', '2'), 'O'); } else if _simple_vec_map[5] == ' '
+            { chng_map(('C', '2'), 'O'); }
         }
         3 => {
+            if _simple_vec_map[0] == ' '
+            { chng_map(('A', '1'), 'O'); } else if _simple_vec_map[4] == ' '
+            { chng_map(('B', '2'), 'O'); } else if _simple_vec_map[6] == ' '
+            { chng_map(('A', '3'), 'O'); }
         }
         4 => {
+            if _simple_vec_map[1] == ' '
+            { chng_map(('B', '1'), 'O'); } else if _simple_vec_map[3] == ' '
+            { chng_map(('A', '2'), 'O'); } else if _simple_vec_map[5] == ' '
+            { chng_map(('C', '2'), 'O'); } else if _simple_vec_map[7] == ' '
+            { chng_map(('B', '3'), 'O'); }
         }
         5 => {
+            if _simple_vec_map[2] == ' '
+            { chng_map(('A', '3'), 'O'); } else if _simple_vec_map[4] == ' '
+            { chng_map(('B', '2'), 'O'); } else if _simple_vec_map[8] == ' '
+            { chng_map(('C', '3'), 'O'); }
+        }
+        6 => {
+            if _simple_vec_map[3] == ' '
+            { chng_map(('A', '2'), 'O'); } else if _simple_vec_map[4] == ' '
+            { chng_map(('B', '2'), 'O'); } else if _simple_vec_map[7] == ' '
+            { chng_map(('B', '3'), 'O'); }
+        }
+        7 => {
+            if _simple_vec_map[4] == ' '
+            { chng_map(('B', '2'), 'O'); } else if _simple_vec_map[6] == ' '
+            { chng_map(('A', '3'), 'O'); } else if _simple_vec_map[8] == ' '
+            { chng_map(('C', '3'), 'O'); }
+        }
+        8 => {
+            if _simple_vec_map[5] == ' '
+            { chng_map(('C', '2'), 'O'); } else if _simple_vec_map[7] == ' '
+            { chng_map(('B', '3'), 'O'); } else if _simple_vec_map[4] == ' '
+            { chng_map(('B', '2'), 'O'); }
+        }
+        _ => {
+            println!("y'a un blème au niveau de i (ia avancée)")
         }
     }
 }
@@ -132,6 +169,7 @@ fn adv_ai_play(rng: &mut impl Rng) {
     if already_played {
         let mut i: i32 = 0;
         for pos in &_simple_vec_map {
+            ai_check_around(_simple_vec_map, i);
             i += 1;
         }
     } else {rnd_ai_play(rng);}
@@ -167,7 +205,7 @@ fn main()
             if PLRWIN {
                 break;
             }
-            rnd_ai_play(&mut rng);
+            adv_ai_play(&mut rng);
             checkwin();
         }
         clearscreen::clear().expect("echec du clearscreen");
