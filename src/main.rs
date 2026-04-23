@@ -12,7 +12,11 @@ macro_rules! placeholder {
 
 static mut MAP: [[char; 3]; 3] = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']];
 static mut PLRPOINTS: [i32; 6] = [0, 0, 0, 0, 0, 0]; //lignes 123 puis colones ABC
+static mut AIPOINTS: [i32; 6] = [0, 0, 0, 0, 0, 0]; //lignes 123 puis colones ABC
 static mut PLRWIN: bool = false;
+static mut AIWIN: bool = false;
+
+
 
 fn drawmap()
 {
@@ -30,17 +34,17 @@ fn drawmap()
 fn chng_map(coords: (char, char), w_plr: char) -> bool {
     unsafe {
         match (coords.0, coords.1) {
-            ('A', '1') => { if MAP[0][0] == ' ' {if w_plr == 'X' {PLRPOINTS[3] += 1; PLRPOINTS[0] += 1;} MAP[0][0] = w_plr; true } else {println!("Coordonnées occupées\n"); thread::sleep(Duration::from_millis(750)); false} }
-            ('A', '2') => { if MAP[1][0] == ' ' {if w_plr == 'X' {PLRPOINTS[3] += 1; PLRPOINTS[1] += 1;} MAP[1][0] = w_plr; true } else {println!("Coordonnées occupées\n"); thread::sleep(Duration::from_millis(750)); false} }
-            ('A', '3') => { if MAP[2][0] == ' ' {if w_plr == 'X' {PLRPOINTS[3] += 1; PLRPOINTS[2] += 1;} MAP[2][0] = w_plr; true } else {println!("Coordonnées occupées\n"); thread::sleep(Duration::from_millis(750)); false} }
+            ('A', '1') => { if MAP[0][0] == ' ' {if w_plr == 'X' {PLRPOINTS[3] += 1; PLRPOINTS[0] += 1;} else if w_plr == 'O' {AIPOINTS[3] += 1; AIPOINTS[0] += 1;} MAP[0][0] = w_plr; true } else {println!("Coordonnées occupées\n"); thread::sleep(Duration::from_millis(750)); false} }
+            ('A', '2') => { if MAP[1][0] == ' ' {if w_plr == 'X' {PLRPOINTS[3] += 1; PLRPOINTS[1] += 1;} else if w_plr == 'O' {AIPOINTS[3] += 1; AIPOINTS[1] += 1;} MAP[1][0] = w_plr; true } else {println!("Coordonnées occupées\n"); thread::sleep(Duration::from_millis(750)); false} }
+            ('A', '3') => { if MAP[2][0] == ' ' {if w_plr == 'X' {PLRPOINTS[3] += 1; PLRPOINTS[2] += 1;} else if w_plr == 'O' {AIPOINTS[3] += 1; AIPOINTS[2] += 1;} MAP[2][0] = w_plr; true } else {println!("Coordonnées occupées\n"); thread::sleep(Duration::from_millis(750)); false} }
             
-            ('B', '1') => { if MAP[0][1] == ' ' {if w_plr == 'X' {PLRPOINTS[4] += 1; PLRPOINTS[0] += 1;} MAP[0][1] = w_plr; true } else {println!("Coordonnées occupées\n"); thread::sleep(Duration::from_millis(750)); false} }
-            ('B', '2') => { if MAP[1][1] == ' ' {if w_plr == 'X' {PLRPOINTS[4] += 1; PLRPOINTS[1] += 1;} MAP[1][1] = w_plr; true } else {println!("Coordonnées occupées\n"); thread::sleep(Duration::from_millis(750)); false} }
-            ('B', '3') => { if MAP[2][1] == ' ' {if w_plr == 'X' {PLRPOINTS[4] += 1; PLRPOINTS[2] += 1;} MAP[2][1] = w_plr; true } else {println!("Coordonnées occupées\n"); thread::sleep(Duration::from_millis(750)); false} }
+            ('B', '1') => { if MAP[0][1] == ' ' {if w_plr == 'X' {PLRPOINTS[4] += 1; PLRPOINTS[0] += 1;} else if w_plr == 'O' {AIPOINTS[4] += 1; AIPOINTS[0] += 1;} MAP[0][1] = w_plr; true } else {println!("Coordonnées occupées\n"); thread::sleep(Duration::from_millis(750)); false} }
+            ('B', '2') => { if MAP[1][1] == ' ' {if w_plr == 'X' {PLRPOINTS[4] += 1; PLRPOINTS[1] += 1;} else if w_plr == 'O' {AIPOINTS[4] += 1; AIPOINTS[1] += 1;} MAP[1][1] = w_plr; true } else {println!("Coordonnées occupées\n"); thread::sleep(Duration::from_millis(750)); false} }
+            ('B', '3') => { if MAP[2][1] == ' ' {if w_plr == 'X' {PLRPOINTS[4] += 1; PLRPOINTS[2] += 1;} else if w_plr == 'O' {AIPOINTS[4] += 1; AIPOINTS[2] += 1;} MAP[2][1] = w_plr; true } else {println!("Coordonnées occupées\n"); thread::sleep(Duration::from_millis(750)); false} }
             
-            ('C', '1') => { if MAP[0][2] == ' ' {if w_plr == 'X' {PLRPOINTS[5] += 1; PLRPOINTS[0] += 1;} MAP[0][2] = w_plr; true } else {println!("Coordonnées occupées\n"); thread::sleep(Duration::from_millis(750)); false} }
-            ('C', '2') => { if MAP[1][2] == ' ' {if w_plr == 'X' {PLRPOINTS[5] += 1; PLRPOINTS[1] += 1;} MAP[1][2] = w_plr; true } else {println!("Coordonnées occupées\n"); thread::sleep(Duration::from_millis(750)); false} }
-            ('C', '3') => { if MAP[2][2] == ' ' {if w_plr == 'X' {PLRPOINTS[5] += 1; PLRPOINTS[2] += 1;} MAP[2][2] = w_plr; true } else {println!("Coordonnées occupées\n"); thread::sleep(Duration::from_millis(750)); false} }
+            ('C', '1') => { if MAP[0][2] == ' ' {if w_plr == 'X' {PLRPOINTS[5] += 1; PLRPOINTS[0] += 1;} else if w_plr == 'O' {AIPOINTS[5] += 1; AIPOINTS[0] += 1;} MAP[0][2] = w_plr; true } else {println!("Coordonnées occupées\n"); thread::sleep(Duration::from_millis(750)); false} }
+            ('C', '2') => { if MAP[1][2] == ' ' {if w_plr == 'X' {PLRPOINTS[5] += 1; PLRPOINTS[1] += 1;} else if w_plr == 'O' {AIPOINTS[5] += 1; AIPOINTS[1] += 1;} MAP[1][2] = w_plr; true } else {println!("Coordonnées occupées\n"); thread::sleep(Duration::from_millis(750)); false} }
+            ('C', '3') => { if MAP[2][2] == ' ' {if w_plr == 'X' {PLRPOINTS[5] += 1; PLRPOINTS[2] += 1;} else if w_plr == 'O' {AIPOINTS[5] += 1; AIPOINTS[2] += 1;} MAP[2][2] = w_plr; true } else {println!("Coordonnées occupées\n"); thread::sleep(Duration::from_millis(750)); false} }
             
             _ => {
                 println!("Entrée incorrecte");
@@ -59,6 +63,12 @@ fn checkwin()
                 PLRWIN = true;
                 break;
             } else {PLRWIN = false;}
+        }
+        for points in AIPOINTS {
+            if points > 2 || MAP[0][0] == 'O' && MAP[1][1] == 'O' && MAP[2][2] == 'O' || MAP[0][2] == 'O' && MAP[1][1] == 'O' && MAP[2][0] == 'O'{
+                AIWIN = true;
+                break;
+            } else {AIWIN = false;}
         }
     }
 }
