@@ -89,11 +89,19 @@ fn plr_play() { // On définit un type de retour (tuple)
 fn ai_check_around(_simple_vec_map: [char; 9], i: i32) {
     match i {
         0 => {
-            if _simple_vec_map[1] != 'O' { chng_map(('B', '1'), 'O'); }
+            if _simple_vec_map[1] == ' '
+            { chng_map(('B', '1'), 'O'); } else if _simple_vec_map[3] == ' '
+            { chng_map(('C', '1'), 'O'); } else if _simple_vec_map[4] == ' '
+            { chng_map(('B', '2'), 'O'); }
         }
         1 => {
+            if _simple_vec_map[0] == ' '
+            { chng_map(('A', '1'), 'O'); } else if _simple_vec_map[2] == ' '
+            { chng_map(('A', '3'), 'O'); } else if _simple_vec_map[4] == ' '
+            {chng_map(('B', '2'), 'O'); }
         }
         2 => {
+            
         }
         3 => {
         }
