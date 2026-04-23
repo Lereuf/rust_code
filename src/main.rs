@@ -86,6 +86,50 @@ fn plr_play() { // On définit un type de retour (tuple)
     }
 }
 
+fn ai_check_around(_simple_vec_map: [char; 9], i: i32) {
+    match i {
+        0 => {
+            if _simple_vec_map[1] != 'O' { chng_map(('B', '1'), 'O'); }
+        }
+        1 => {
+        }
+        2 => {
+        }
+        3 => {
+        }
+        4 => {
+        }
+        5 => {
+        }
+    }
+}
+
+fn adv_ai_play(rng: &mut impl Rng) {
+    let mut _simple_vec_map: [char; 9] = [' '; 9];
+    unsafe {
+        let mut i = 0;
+        for line in MAP {
+            for &c in &line {
+                _simple_vec_map[i] = c;
+                i += 1;
+            }
+        }
+    }
+    let mut already_played: bool = false;
+    for pos in &_simple_vec_map {
+        if *pos != 'O' {
+            already_played = false;
+        }
+    }
+    if already_played {
+        let mut i: i32 = 0;
+        for pos in &_simple_vec_map {
+            i += 1;
+        }
+    } else {rnd_ai_play(rng);}
+
+}
+
 fn rnd_ai_play(rng: &mut impl Rng) {
     loop {
         // C'est ICI que la magie opère en v0.10+
