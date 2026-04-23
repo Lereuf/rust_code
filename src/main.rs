@@ -55,6 +55,22 @@ fn chng_map(coords: (char, char), w_plr: char) -> bool {
     }
 }
 
+fn check_no_full() -> bool {
+    let mut ok: bool = true;
+    unsafe {
+        for line in &*(&raw const MAP) {
+            for &c in line {
+                if c != ' ' {
+                    ok = false;
+                } else {
+                    ok = true;
+                }
+                }
+            }
+        }
+    ok
+    }
+
 fn checkwin()
 {
     unsafe {
@@ -178,7 +194,7 @@ fn adv_ai_play(rng: &mut impl Rng) {
     }
     if already_played {
         let mut i: i32 = 0;
-        for pos in &_simple_vec_map {
+        for _pos in &_simple_vec_map {
             ai_check_around(_simple_vec_map, i);
             i += 1;
         }
@@ -212,16 +228,30 @@ fn main()
             drawmap();
             plr_play();
             checkwin();
-            if PLRWIN {
+            if PLRWIN {clearscreen::clear().expect("echec du clearscreen");
+                drawmap();
+                println!("Vous avez gagné !");
+                thread::sleep(Duration::from_secs(1));
+                clearscreen::clear().expect("echec du clearscreen");
                 break;
             }
             adv_ai_play(&mut rng);
             checkwin();
+            if AIWIN {
+                clearscreen::clear().expect("echec du clearscreen");
+                drawmap();
+                println!("L'IA a gagné !");
+                thread::sleep(Duration::from_secs(1));
+                clearscreen::clear().expect("echec du clearscreen");
+                break;
+            }
+            if !check_no_full() {
+                println!("Match nul !");
+                thread::sleep(Duration::from_secs(1));
+                clearscreen::clear().expect("echec du clearscreen");
+                break;
+            }
         }
-        clearscreen::clear().expect("echec du clearscreen");
-        drawmap();
-        println!("Vous avez gagné.");
-        thread::sleep(Duration::from_secs(1));
-        clearscreen::clear().expect("echec du clearscreen");
+        }
+        
     }
-}
