@@ -1,0 +1,8 @@
+[package]
+name = "rust_code"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+clearscreen = "4.0.6"
+rand = { version = "0.10.1", features = ["std"] }
